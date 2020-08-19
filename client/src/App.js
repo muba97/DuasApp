@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AnnoucementPage from './pages/AnnoucementPage';
-import DuasPage from './pages/DuasPage';
+import GeneralPage from './pages/GeneralPage';
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
           <Route exact path="/">
             <AnnoucementPage />
           </Route>
-          <Route exact path="/duas">
-            <DuasPage />
+          <Route exact path="/generalduas">
+            <GeneralPage />
           </Route>
         </Switch>
       </Router>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles, Toolbar, AppBar } from '@material-ui/core';
+import React, {useState} from 'react';
+import { makeStyles, Toolbar, AppBar, Drawer } from '@material-ui/core';
 
 const useStyle = makeStyles(() => ({
   root: {
@@ -20,7 +20,7 @@ const useStyle = makeStyles(() => ({
 
 const Navbar = () => {
   const classes = useStyle();
-
+  const [state, setState] = React.useState(false);
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appbar}>
