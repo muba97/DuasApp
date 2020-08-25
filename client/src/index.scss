@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+// 1. Import the initial variables
+@import "../node_modules/bulma/sass/utilities/initial-variables.sass";
+@import "../node_modules/bulma/sass/utilities/functions.sass";
+
+$dark: #121616;
+$primary: #3C8B73;
+$info: #D7C8BC;
+$family-serif: "Merriweather", "Georgia", serif;
+$family-primary: $family-serif;
+
+
+
+// 3. Add new color variables to the color map.
+
+
+@import 'bulma/bulma';
+@import "../node_modules/bulma/bulma.sass";

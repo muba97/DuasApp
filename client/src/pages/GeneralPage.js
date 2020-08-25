@@ -6,15 +6,23 @@ import General from '../components/General';
 const GeneralInfo = {
   title: 'General',
   duasLabels: [
-    { label: '99 Names Of Allah and its benefits', title: 'General' },
-    { label: 'Sunnahs of Prophet Muhammad SAW', title: 'General' },
+    { label: '99 Names Of ALLAH', title: 'General' },
+    { label: 'Sunnahs', title: 'General' },
   ],
   duasItems: [
     {
       title: 'Al Aziz',
-      arabic: 'العزيز',
-      description: 'From the Quran',
-      label: '99 Names Of Allah and its benefits',
+      arabic: 'ٱلْعَزِيزُ',
+      description: 'The All Mighty',
+      label: '99 Names Of ALLAH',
+      sources: 'From the Quran',
+    },
+    {
+      title: 'Al Aziz',
+      arabic: 'ٱلْعَزِيزُ',
+      description: 'The All Mighty',
+      label: '99 Names Of ALLAH',
+      sources: 'From the Quran',
     },
   ],
 };
@@ -51,14 +59,13 @@ const DuasPage = () => {
   };
   return (
     <div>
-      <div className={classes.image}>
-        <Grid item xs={10} md={10} container justify="center" alignItems="center">
-          <img alt="logo-icon" src="./BMLogo.png" className={classes.logo} />
-        </Grid>
+      <div className="has-text-centered mt-1">
+        <img alt="logo-icon" src="./BMLogo.png" width="350"
+          height="110"/>
       </div>
       {GeneralInfo.duasLabels.map((access) => (
         <div key={access.label} className={classes.root}>
-          <General labels={access.label} items={handleChange(access.label)} />
+          <General labels={access.label} generalItems={handleChange(access.label)} />
         </div>
       ))}
     </div>

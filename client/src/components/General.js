@@ -1,74 +1,29 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import Items from './Items';
+import PropTypes from 'prop-types';
 
-const useStyle = makeStyles({
-  field: {
-    margin: 10,
-  },
-  logo: {
-    height: 140,
-    weight: 180,
-    position: 'absolute',
-    left: '50%',
-    top: '20%',
-    transform: 'translate(-50%, -50%)',
-    color: '#D7C8BC',
-    justifyContent: 'space-between',
-    display: 'flex',
-    borderRadius: '4px',
-    marginBottom: 5,
-    padding: '10px 15px 10px 15px',
-  },
-  btn: {
-    justifyContent: 'space-between',
-    display: 'flex',
-    background: '#121616',
-    borderRadius: '4px',
-    marginBottom: 5,
-    color: 'white',
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
-    fontSize: '13px',
-    width: '100%',
-    padding: '10px 15px 10px 15px',
-    '&:disabled': {
-      opacity: '40%',
-    },
-    '&:hover': {
-      background: '#3C8B73',
-    },
-  },
-});
-const General = ({ labels, items }) => {
-  const classes = useStyle();
+const General = ({ labels, generalItems }) => {
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen(!open);
-  console.log('item: ', items);
-  console.log('labels: ', labels);
   return (
     <div data-testid="generalInfo">
       <button
-        className={classes.btn}
+        className="button is-medium is-fullwidth hover-color is-dark is-focused has-text-right is-size-5-mobile"
         type="button"
         onClick={() => toggle()}
         data-testid="openButton"
       >
-        <div className={classes.field}>
-          <p className={classes.field}> {labels} </p>
-        </div>
-        <div className={classes.field}>
-          <p>{open ? 'Close' : 'Expand'}</p>
-        </div>
+        <p className=" is-uppercase is-text-left has-text-primary has-text-weight-bold is-size-6 is-size-7-mobile">
+          {' '}
+          {labels}{' '}
+        </p>
       </button>
       {open && (
-        <ul className={classes.field}>
-          {items.map((item) => (
-            <div
-              data-testid="serviceItems"
-              className={classes.field}
-              key={items.toString()}
-            >
-              <items items={item} />
+        <ul>
+          {generalItems.map((item) => (
+            <div data-testid="serviceItems" key={generalItems.toString()}>
+              <Items items={item} />
             </div>
           ))}
         </ul>

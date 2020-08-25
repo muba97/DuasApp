@@ -19,16 +19,30 @@ const useStyle = makeStyles(() => ({
 }));
 
 const Navbar = () => {
-  const classes = useStyle();
-  const [state, setState] = React.useState(false);
   return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appbar}>
-        <Toolbar>
-          <img alt="logo-icon" src="/ColorLogo.svg" className={classes.logo} />
-        </Toolbar>
-      </AppBar>
-    </div>
+    // <div className={classes.root}>
+    //   <AppBar position="static" className={classes.appbar}>
+    //     <Toolbar>
+    //       <img alt="logo-icon" src="/ColorLogo.svg" className={classes.logo} />
+    //     </Toolbar>
+    //   </AppBar>
+    // </div>
+    <nav role="navigation" aria-label="main navigation" className="navbar is-dark">
+      <div className="navbar-is-centered">
+        <img
+          alt="logo-icon"
+          src="/ColorLogo.svg"
+          width="140"
+          height="35"
+          style={{
+            borderTopLeftRadius: '50%',
+            borderTopRightRadius: '50%',
+            borderBottomLeftRadius: '50%',
+            borderBottomRightRadius: '50%',
+          }}
+        />
+      </div>
+    </nav>
   );
 };
 export default Navbar;
