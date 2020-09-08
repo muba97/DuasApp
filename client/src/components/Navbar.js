@@ -9,40 +9,46 @@ const useStyle = makeStyles(() => ({
     backgroundColor: '#121616',
   },
   logo: {
-    height: 55,
-    weight: 80,
+    height: 40,
+    weight: 140,
     position: 'absolute',
     left: '50%',
     top: '50%',
+    borderTopLeftRadius: '50%',
+    borderTopRightRadius: '50%',
+    borderBottomLeftRadius: '50%',
+    borderBottomRightRadius: '50%',
     transform: 'translate(-50%, -50%)',
   },
 }));
 
 const Navbar = () => {
+  const classes = useStyle();
   return (
-    // <div className={classes.root}>
-    //   <AppBar position="static" className={classes.appbar}>
-    //     <Toolbar>
-    //       <img alt="logo-icon" src="/ColorLogo.svg" className={classes.logo} />
-    //     </Toolbar>
-    //   </AppBar>
-    // </div>
-    <nav role="navigation" aria-label="main navigation" className="navbar is-dark">
-      <div className="navbar-is-centered">
-        <img
-          alt="logo-icon"
-          src="/ColorLogo.svg"
-          width="140"
-          height="35"
-          style={{
-            borderTopLeftRadius: '50%',
-            borderTopRightRadius: '50%',
-            borderBottomLeftRadius: '50%',
-            borderBottomRightRadius: '50%',
-          }}
-        />
-      </div>
-    </nav>
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.appbar}>
+        <Toolbar>
+          <img alt="logo-icon" src="/ColorLogo.svg" className={classes.logo} />
+        </Toolbar>
+      </AppBar>
+    </div>
+    // <nav role="navigation" aria-label="main navigation" className="navbar is-dark">
+    //   <div className="navbar-is-centered">
+    //     <img
+    //       alt="logo-icon"
+    //       src="/ColorLogo.svg"
+    //       width="140"
+    //       height="35"
+    //       style={{
+    //         borderTopLeftRadius: '50%',
+    //         borderTopRightRadius: '50%',
+    //         borderBottomLeftRadius: '50%',
+    //         borderBottomRightRadius: '50%',
+    //         transform: 'translate(300%, 0%)',
+    //       }}
+    //     />
+    //   </div>
+    // </nav>
   );
 };
 export default Navbar;

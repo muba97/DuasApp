@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import General from '../components/Duas';
+
+import General from '../components/DuasAdmin';
 
 const GeneralInfo = {
   title: 'General',
@@ -28,9 +28,7 @@ const GeneralInfo = {
     },
   ],
 };
-
-
-const GeneralPage = () => {
+const AdminGeneralPage = () => {
   const handleChange = (e) => {
     const temp = [];
     for (let i = 0; i < GeneralInfo.duasItems.length; i += 1) {
@@ -54,4 +52,4 @@ const GeneralPage = () => {
   );
 };
 
-export default GeneralPage;
+export default AdminGeneralPage;

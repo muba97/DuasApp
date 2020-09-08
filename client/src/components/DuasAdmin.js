@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Items from './Items';
+import Items from './ItemsAdmin';
 import PropTypes from 'prop-types';
 
-const General = ({ labels, generalItems }) => {
+const Duas = ({ labels, duaItems }) => {
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen(!open);
   return (
-    <div data-testid="generalInfo">
+    <div data-testid="duaInfo">
       <button
         className="button is-medium is-fullwidth hover-color is-dark is-focused has-text-right is-size-5-mobile"
         type="button"
@@ -21,8 +21,8 @@ const General = ({ labels, generalItems }) => {
       </button>
       {open && (
         <ul>
-          {generalItems.map((item) => (
-            <div data-testid="serviceItems" key={generalItems.toString()}>
+          {duaItems.map((item) => (
+            <div data-testid="serviceItems" key={duaItems.toString()}>
               <Items items={item} />
             </div>
           ))}
@@ -31,4 +31,4 @@ const General = ({ labels, generalItems }) => {
     </div>
   );
 };
-export default General;
+export default Duas;
