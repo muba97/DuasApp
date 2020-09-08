@@ -8,6 +8,7 @@ import EmotionPage from './pages/EmotionPage';
 import SituationPage from './pages/SituationPage';
 import AdminGeneralPage from './pages/AdminGeneralPage';
 import LoginPage from './pages/LoginPage';
+import NewItemPage from './pages/NewItemPage';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/scholarlogin">
             <LoginPage />
+          </Route>
+          <Route exact path="/add">
+            <NewItemPage />
           </Route>
         </Switch>
       </Router>

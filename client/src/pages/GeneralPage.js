@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import General from '../components/Duas';
 
 const GeneralInfo = {
@@ -28,7 +27,6 @@ const GeneralInfo = {
     },
   ],
 };
-
 
 const GeneralPage = () => {
   const handleChange = (e) => {

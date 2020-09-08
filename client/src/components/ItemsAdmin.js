@@ -84,7 +84,7 @@ const AdminItems = ({ items }) => {
                   <input
                     data-testid="input-title"
                     type="text"
-                    className="input"
+                    className="input is-primary"
                     name="title"
                     placeholder="Title"
                     defaultValue={serviceData.title}
@@ -104,7 +104,7 @@ const AdminItems = ({ items }) => {
                   <input
                     data-testid="input-label"
                     type="text"
-                    className="input"
+                    className="input is-primary"
                     name="label"
                     placeholder="Label"
                     defaultValue={serviceData.label}
@@ -124,7 +124,7 @@ const AdminItems = ({ items }) => {
                   <input
                     data-testid="input-sources"
                     type="text"
-                    className="input "
+                    className="input is-primary"
                     name="sources"
                     placeholder="Sources"
                     defaultValue={serviceData.sources}
@@ -147,7 +147,7 @@ const AdminItems = ({ items }) => {
                 <input
                   data-testid="input-arabic"
                   type="text"
-                  className="input has-text-right"
+                  className="input is-primary has-text-right"
                   name="arabic"
                   placeholder="Arabic"
                   defaultValue={serviceData.arabic}
@@ -169,7 +169,7 @@ const AdminItems = ({ items }) => {
                 <textarea
                   data-testid="input-description"
                   type="text"
-                  className="textarea"
+                  className="textarea is-primary"
                   name="description"
                   placeholder="Description"
                   defaultValue={serviceData.description}
