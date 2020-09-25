@@ -1,0 +1,17 @@
+type Titles @model {
+  id: ID!
+  title: String!
+}
+type Labels @model {
+  id: ID!
+  label: String!
+  title: String!
+}
+type Items @model {
+  id: ID!
+  title: String!
+  label: String!
+  arabic: String!
+  sources: String!
+  description: String!
+}

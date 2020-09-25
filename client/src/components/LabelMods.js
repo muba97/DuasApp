@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { API, graphqlOperation } from 'aws-amplify';
+import { createLabels } from '../graphql/mutations';
 
 const LabelMods = () => {
   const [formData, setFormData] = useState([]);
@@ -15,9 +14,10 @@ const LabelMods = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     setFormData(data);
     reset(e);
+    await API.graphql(graphqlOperation(createLabels, { input: FormData }));
   };
 
   return (
