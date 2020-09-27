@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "duasbase540b883c_identitypool_540b883c",
+    "identityPoolName": "duasbasef215ddd5_identitypool_f215ddd5",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "duasba540b883c",
-    "userPoolName": "duasbase540b883c_userpool_540b883c",
+    "resourceNameTruncated": "duasbaf215ddd5",
+    "userPoolName": "duasbasef215ddd5_userpool_f215ddd5",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "duasba540b883c_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "duasbaf215ddd5_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "540b883c",
-    "resourceName": "duasbase540b883c",
+    "sharedId": "f215ddd5",
+    "resourceName": "duasbasef215ddd5",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,11 +46,9 @@
         ]
     },
     "useDefault": "default",
-    "triggers": "{}",
+    "usernameAttributes": [
+        "email"
+    ],
     "userPoolGroupList": [],
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
     "dependsOn": []
 }

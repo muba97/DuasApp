@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import Navbar from './components/Navbar';
 import AnnoucementPage from './pages/AnnoucementPage';
 import GeneralPage from './pages/GeneralPage';
@@ -9,8 +10,24 @@ import SituationPage from './pages/SituationPage';
 import AdminGeneralPage from './pages/AdminGeneralPage';
 import LoginPage from './pages/LoginPage';
 import NewItemPage from './pages/NewItemPage';
+import awsExports from './aws-exports';
+import { listTitless } from './graphql/queries';
 
+Amplify.configure(awsExports);
 function App() {
+  const [duas, setduas] = useState([]);
+
+  async function fetchduas() {
+    try {
+      const duasData = await API.graphql(graphqlOperation(listTitless))
+      const duas = duasData.data.listTitless.items
+      console.log('duas list', duas);
+      setduas(duas)
+    } catch (err) { console.log('error fetching duas', err) }
+  }
+  useEffect(() => {
+    fetchduas();
+  }, []);
   return (
     <div className="App">
       <Router>

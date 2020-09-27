@@ -1,13 +1,13 @@
 {
   "auth": {
-    "duasbase540b883c": {
+    "duasbasef215ddd5": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
   },
   "api": {
-    "duasbaseAPI": {
+    "duasbase": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -15,7 +15,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authduasbase540b883c"
+              "userPoolId": "authduasbasef215ddd5"
             }
           },
           "additionalAuthenticationProviders": []

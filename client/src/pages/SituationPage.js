@@ -30,6 +30,7 @@ const useStyle = makeStyles(() => ({
   logo: {
     height: 140,
     weight: 180,
+
     left: '50%',
     top: '20%',
     transform: 'translate(25%)',
