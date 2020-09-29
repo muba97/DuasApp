@@ -67,14 +67,10 @@ const LoginInfo = () => {
     console.log(email, password);
     try {
       const user = await Auth.signIn(email, password);
-      console.log(user);
-      // await Auth.changePassword(user, 'Bassem123!', 'temporarypassword');
-      // setRedirectState(() => '/');
-      // history.go(0);
-      // history.push('/add');
-      // return <Redirect to="/" />;
-      const check = await Auth.currentAuthenticatedUser();
-      console.log(check);
+      // console.log(user);
+      history.push('/');
+      // const check = await Auth.currentAuthenticatedUser();
+      // console.log(check);
     } catch (err) {
       console.log(err);
       setloginErr(err.message);
