@@ -68,6 +68,7 @@ const LoginInfo = () => {
     try {
       const user = await Auth.signIn(email, password);
       console.log(user);
+      // await Auth.changePassword(user, 'Bassem123!', 'temporarypassword');
       // setRedirectState(() => '/');
       // history.go(0);
       // history.push('/add');
@@ -84,16 +85,16 @@ const LoginInfo = () => {
     await Auth.currentAuthenticatedUser()
       .then((user) => {
         console.log(user);
-        setloginErr('user Authenticated');
+        // setloginErr('user Authenticated');
       })
       .catch((err) => {
         console.log(err);
-        setloginErr('User not authenticated');
+        // setloginErr('User not authenticated');
       });
   };
-  // useEffect(() => {
-  //   checkUserAuthentication();
-  // });
+  useEffect(() => {
+    checkUserAuthentication();
+  }, []);
 
   const classes = useStyles();
   return (
