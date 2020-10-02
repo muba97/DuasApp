@@ -11,7 +11,7 @@ import AdminGeneralPage from './pages/AdminGeneralPage';
 import LoginPage from './pages/LoginPage';
 import NewItemPage from './pages/NewItemPage';
 import awsExports from './aws-exports';
-import { listTitless } from './graphql/queries';
+import { listLabelss } from './graphql/queries';
 
 Amplify.configure(awsExports);
 function App() {
@@ -19,8 +19,8 @@ function App() {
 
   async function fetchduas() {
     try {
-      const duasData = await API.graphql(graphqlOperation(listTitless))
-      const duas = duasData.data.listTitless.items
+      const duasData = await API.graphql(graphqlOperation(listLabelss));
+      const duas = duasData.data.listLabelss.items
       console.log('duas list', duas);
       setduas(duas)
     } catch (err) { console.log('error fetching duas', err) }

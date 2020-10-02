@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { API, graphqlOperation } from 'aws-amplify';
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import awsExports from '../aws-exports';
 import { createLabels } from '../graphql/mutations';
+
+Amplify.configure(awsExports);
 
 const LabelMods = () => {
   const [formData, setFormData] = useState([]);
@@ -17,7 +20,9 @@ const LabelMods = () => {
   const onSubmit = async (data, e) => {
     setFormData(data);
     reset(e);
-    await API.graphql(graphqlOperation(createLabels, { input: FormData }));
+    await API.graphql(graphqlOperation(createLabels, { input: formData }))
+    .then((res) =>console.log('success ', res))
+    .catch((res) =>console.log('error ', res.errors));
   };
 
   return (
