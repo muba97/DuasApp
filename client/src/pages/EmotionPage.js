@@ -40,7 +40,7 @@ const useStyle = makeStyles(() => ({
     padding: '10px 15px 10px 15px',
   },
   root: {
-    margin: 40,
+    margin: 5,
     marginTop: '5px',
   },
 }));

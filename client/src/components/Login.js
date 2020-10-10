@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import * as yup from 'yup';
+import { Auth } from 'aws-amplify';
+import { useHistory } from 'react-router-dom';
 
 const loginSchema = yup.object().shape({
   email: yup.string().email('Valid email is required').required('Email is required'),
@@ -44,7 +46,10 @@ const useStyles = makeStyles({
 });
 
 const LoginInfo = () => {
+  let history = useHistory();
   const [formData, setFormData] = useState([]);
+  const [loginErr, setloginErr] = useState('');
+  // const [redirect, setRedirectState] = useState(null);
   const { register, handleSubmit, errors } = useForm({
     reValidateMode: 'onSubmit',
     validationSchema: loginSchema,
@@ -57,15 +62,43 @@ const LoginInfo = () => {
     });
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    console.log(email, password);
+    try {
+      const user = await Auth.signIn(email, password);
+      // console.log(user);
+      history.push('/');
+      // const check = await Auth.currentAuthenticatedUser();
+      // console.log(check);
+    } catch (err) {
+      console.log(err);
+      setloginErr(err.message);
+    }
+  };
+
+  const checkUserAuthentication = async () => {
+    await Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log(user);
+        // setloginErr('user Authenticated');
+      })
+      .catch((err) => {
+        console.log(err);
+        // setloginErr('User not authenticated');
+      });
+  };
+  useEffect(() => {
+    checkUserAuthentication();
+  }, []);
 
   const classes = useStyles();
-
   return (
     <div data-testid="login">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid item xs={12} md={12}>
           <div>
+            <p style={{ color: 'red' }}>{loginErr}</p>
             <label htmlFor="email">
               {' '}
               Email *
