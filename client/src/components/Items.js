@@ -115,16 +115,20 @@ const Items = ({ items }) => {
     <div>
       <Component />
       <ToDownloadComponent />
-      <button
-        className="button"
-        onClick={async () => {
-          await setref(true);
-          exportComponentAsPNG(componentRef);
-          setref(false);
-        }}
-      >
-        Download
-      </button>
+      <div className="has-text-right">
+        <span>
+          <button
+            className="button"
+            onClick={async () => {
+              await setref(true);
+              exportComponentAsPNG(componentRef);
+              setref(false);
+            }}
+          >
+            Download
+          </button>
+        </span>
+      </div>
     </div>
   );
 };
