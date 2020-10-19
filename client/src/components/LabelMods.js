@@ -46,7 +46,7 @@ const LabelMods = () => {
               {' '}
               Title
               <div className="control">
-                <input
+                <select
                   required
                   data-testid="input-title"
                   type="text"
@@ -54,8 +54,11 @@ const LabelMods = () => {
                   name="title"
                   placeholder="Title"
                   ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
+                  onChange={(e) => handleChange(e)}>
+                  <option value="General">General</option>
+                  <option value="Emotional">Emotional</option>
+                  <option value="Situational">Situational</option>
+                </select>
               </div>
             </label>
           </div>

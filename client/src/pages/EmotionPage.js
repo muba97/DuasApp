@@ -1,44 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { makeStyles } from '@material-ui/core/styles';
 import Duas from '../components/Duas';
+import awsExports from '../aws-exports';
+import { listLabelss, listItemss } from '../graphql/queries';
 
-const EmotionInfo = {
-  title: 'General',
-  duasLabels: [
-    { label: '99 Names Of ALLAH', title: 'General' },
-    { label: 'Sunnahs', title: 'General' },
-  ],
-  duasItems: [
-    {
-      title: 'Al Aziz',
-      arabic: 'ٱلْعَزِيزُ',
-      description: 'The All Mighty',
-      label: '99 Names Of ALLAH',
-      sources: 'From the Quran',
-    },
-    {
-      title: 'Al Aziz',
-      arabic: 'ٱلْعَزِيزُ',
-      description: 'The All Mighty',
-      label: '99 Names Of ALLAH',
-      sources: 'From the Quran',
-    },
-  ],
-};
+Amplify.configure(awsExports);
 
 const useStyle = makeStyles(() => ({
-  logo: {
-    height: 140,
-    weight: 180,
-    left: '50%',
-    top: '20%',
-    transform: 'translate(25%)',
-    color: '#3C8B73',
-    justifyContent: 'space-between',
-    display: 'flex',
-    borderRadius: '4px',
-    padding: '10px 15px 10px 15px',
-  },
   root: {
     margin: 5,
     marginTop: '5px',
@@ -47,21 +16,51 @@ const useStyle = makeStyles(() => ({
 
 const EmotionPage = () => {
   const classes = useStyle();
-  const handleChange = (e) => {
-    const temp = [];
-    for (let i = 0; i < EmotionInfo.duasItems.length; i += 1) {
-      if (EmotionInfo.duasItems[i].label === e) {
-        temp.push(EmotionInfo.duasItems[i]);
-      }
+  const [labels, setlabels] = useState([]);
+
+  const fetchLabel = async () => {
+    const labelFilter = {
+      title: {
+        contains: 'Emotional', // filter when title = 'General'
+      },
+    };
+    try {
+      const duaData = await API.graphql(
+        graphqlOperation(listLabelss, { filter: labelFilter })
+      );
+      const duaList = duaData.data.listLabelss.items;
+      console.log('song list', duaList);
+      setlabels(duaData.data.listLabelss.items);
+    } catch (error) {
+      console.log('error on fetching songs', error);
     }
-    return temp;
+  };
+  useEffect(() => {
+    fetchLabel();
+  }, []);
+  const handleChange = async (e) => {
+    const itemFilter = {
+      label: {
+        contains: e, // filter when title = 'General'
+      },
+    };
+    try {
+      const itemData = await API.graphql(
+        graphqlOperation(listItemss, { filter: itemFilter })
+      );
+      const itemList = itemData.data.listItemss.items;
+      console.log('item List', itemData);
+      return itemList;
+    } catch (error) {
+      console.log('error on fetching songs', error);
+    }
   };
   return (
     <div>
       <div className="has-text-centered mt-1">
         <img alt="logo-icon" src="./BMLogo.png" width="350" height="110" />
       </div>
-      {EmotionInfo.duasLabels.map((access) => (
+      {labels.map((access) => (
         <div key={access.label} className={classes.root}>
           <Duas labels={access.label} duaItems={handleChange(access.label)} />
         </div>
