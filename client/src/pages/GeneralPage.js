@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import General from '../components/Duas';
 import awsExports from '../aws-exports';
-import { listTitless } from '../graphql/queries';
+import { listLabelss, listItemss } from '../graphql/queries';
 
 const GeneralInfo = {
   title: 'General',
@@ -30,17 +30,26 @@ const GeneralInfo = {
     },
   ],
 };
+
 Amplify.configure(awsExports);
 
 const GeneralPage = () => {
-  const [duas, setduas] = useState([]);
+  const [labels, setlabels] = useState([]);
+  const [items, setItems] = useState([]);
 
   const fetchduas = async () => {
+    const labelFilter = {
+      title: {
+        contains: 'General', // filter when title = 'General'
+      },
+    };
     try {
-      const duaData = await API.graphql(graphqlOperation(listTitless));
-      const duaList = duaData.data.listTitless.items;
+      const duaData = await API.graphql(
+        graphqlOperation(listLabelss, { filter: labelFilter })
+      );
+      const duaList = duaData.data.listLabelss.items;
       console.log('song list', duaList);
-      setduas(duaList);
+      setlabels(duaData.data.listLabelss.items);
     } catch (error) {
       console.log('error on fetching songs', error);
     }
@@ -49,22 +58,36 @@ const GeneralPage = () => {
     fetchduas();
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
+    const itemFilter = {
+      label: {
+        contains: e, // filter when title = 'General'
+      },
+    };
+    try {
+      const itemData = await API.graphql(
+        graphqlOperation(listItemss, { filter: itemFilter })
+      );
+      const itemList = itemData.data.listItemss.items;
+      console.log('item List', itemData);
+      return itemList;
+    } catch (error) {
+      console.log('error on fetching songs', error);
+    }
     const temp = [];
+
     for (let i = 0; i < GeneralInfo.duasItems.length; i += 1) {
       if (GeneralInfo.duasItems[i].label === e) {
         temp.push(GeneralInfo.duasItems[i]);
       }
     }
-    return temp;
   };
   return (
     <div>
-      <div>dua being fetched {fetchduas}</div>
       <div className="has-text-centered mt-1">
         <img alt="logo-icon" src="./BMLogo.png" width="350" height="110" />
       </div>
-      {GeneralInfo.duasLabels.map((access) => (
+      {labels.map((access) => (
         <div key={access.label} className="mt-5">
           <General labels={access.label} duaItems={handleChange(access.label)} />
         </div>

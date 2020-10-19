@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { API, graphqlOperation } from 'aws-amplify';
 import LabelMods from './LabelMods';
+import { createItems } from '../graphql/mutations';
 
 const editSchema = yup.object().shape({
   title: yup.string().required('Title is Required'),
-  time: yup.string().required('Time is Required'),
-  price: yup.string().required('Price is Required'),
-  description: yup.string().required('Description is Required'),
   label: yup.string().required('Label is Required'),
+  sources: yup.string().required('Source is Required'),
+  arabic: yup.string().required('Dua is Required'),
+  description: yup.string().required('Description is Required'),
 });
 
 
@@ -27,8 +29,9 @@ const NewService = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     setFormData(data);
+    await API.graphql(graphqlOperation(createItems, { input: formData }));
     reset(e);
     console.log(formData);
   };
@@ -113,16 +116,16 @@ const NewService = () => {
             </label>
           </div>
           <div className="field">
-            <label htmlFor="source" className="label has-text-primary">
+            <label htmlFor="sources" className="label has-text-primary">
               {' '}
               Source
               <div className="control">
                 <input
                   required
-                  data-testid="input-source"
+                  data-testid="input-sources"
                   type="text"
                   className="input is-primary"
-                  name="source"
+                  name="sources"
                   placeholder="Source"
                   ref={register}
                   onChange={(e) => handleChange(e)}

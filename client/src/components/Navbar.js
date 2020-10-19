@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ListItem } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 const drawerWidth = 180;
 
@@ -96,6 +97,13 @@ const Navbar = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  async function signOut() {
+    try {
+        await Auth.signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
 
   return (
     <div className={classes.root}>
@@ -153,6 +161,9 @@ const Navbar = (props) => {
           <ListItem component={Link} to="/situational" className={classes.content}>
             Situational
           </ListItem>
+        </List>
+        <List>
+          <button type="button" onClick={() => signOut()}>SignOut</button>
         </List>
       </Drawer>
     </div>

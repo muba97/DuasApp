@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import Items from './Items';
 import PropTypes from 'prop-types';
 
+
 const Duas = ({ labels, duaItems }) => {
+  const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
+  duaItems.then((token) => console.log('right', token));
+  duaItems.then((token) => setItems(token));
+  console.log('dua', items);
 
   const toggle = () => setOpen(!open);
   return (
@@ -21,7 +26,7 @@ const Duas = ({ labels, duaItems }) => {
       </button>
       {open && (
         <ul>
-          {duaItems.map((item) => (
+          {items.map((item) => (
             <div data-testid="serviceItems" key={duaItems.toString()}>
               <Items items={item} />
             </div>
