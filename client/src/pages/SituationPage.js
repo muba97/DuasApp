@@ -5,6 +5,8 @@ import Duas from '../components/Duas';
 import awsExports from '../aws-exports';
 import { listLabelss, listItemss } from '../graphql/queries';
 
+Amplify.configure(awsExports);
+
 const SituationInfo = {
   title: 'Situation',
   duasLabels: [

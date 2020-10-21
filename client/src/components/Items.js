@@ -116,9 +116,9 @@ const Items = ({ items }) => {
       <Component />
       <ToDownloadComponent />
       <div className="has-text-right">
-        <span>
+        <span className="control">
           <button
-            className="button"
+            className="button is-primary"
             onClick={async () => {
               await setref(true);
               exportComponentAsPNG(componentRef);

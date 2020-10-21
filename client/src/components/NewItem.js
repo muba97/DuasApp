@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { API, graphqlOperation } from 'aws-amplify';
 import LabelMods from './LabelMods';
 import { createItems } from '../graphql/mutations';
+import { listLabelss } from '../graphql/queries';
 
 const editSchema = yup.object().shape({
   title: yup.string().required('Title is Required'),
@@ -13,12 +14,13 @@ const editSchema = yup.object().shape({
   description: yup.string().required('Description is Required'),
 });
 
-
-
 const NewService = () => {
   const [formData, setFormData] = useState([]);
+  const [titleData, setTitleData] = useState([]);
+  const [labels, setlabels] = useState([]);
   const [labelOpen, setlabelOpen] = useState(false);
   const [itemOpen, setitemOpen] = useState(false);
+  const [selected, setselected] = useState(false);
   const { register, handleSubmit, reset } = useForm({
     reValidateMode: 'onSubmit',
     validationSchema: editSchema,
@@ -29,11 +31,50 @@ const NewService = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const onSubmit = async (data, e) => {
-    setFormData(data);
-    await API.graphql(graphqlOperation(createItems, { input: formData }));
+  const handleTitleChange = (e) => {
+    setTitleData({
+      ...titleData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onSelected = async (data, e) => {
+    setTitleData(data);
+    console.log(titleData);
     reset(e);
-    console.log(formData);
+    setselected(true);
+  };
+  const onSubmit = async (data, e) => {
+    if (selected == true) {
+      setFormData(data);
+      await API.graphql(graphqlOperation(createItems, { input: formData }));
+      reset(e);
+      console.log(formData);
+      setselected(false);
+
+    } else {
+      setFormData(data);
+      console.log(formData);
+      reset(e);
+      setselected(true);
+    }
+  };
+  const fetchLabels = async () => {
+    console.log(titleData.title);
+    const labelFilter = {
+      title: {
+        contains: titleData.title, // filter when title = 'General'
+      },
+    };
+    try {
+      const duaData = await API.graphql(
+        graphqlOperation(listLabelss, { filter: labelFilter })
+      );
+      const duaList = duaData.data.listLabelss.items;
+      console.log('song list', duaList);
+      setlabels(duaData.data.listLabelss.items);
+    } catch (error) {
+      console.log('error on fetching songs', error);
+    }
   };
 
   const labelToggle = () => {
@@ -78,105 +119,148 @@ const NewService = () => {
         </div>
       )}
       {itemOpen && (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="field">
-            <label htmlFor="title" className="label has-text-primary">
-              {' '}
-              Title *
-              <div className="control">
+        <div>
+          {selected && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="field">
+                <label htmlFor="title" className="label has-text-primary">
+                  {' '}
+                  Title *
+                  <div className="control">
+                    <input
+                      required
+                      data-testid="input-title"
+                      type="text"
+                      className="input is-primary"
+                      name="title"
+                      placeholder="Title"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                </label>
+              </div>
+              <div className="field">
+                <label htmlFor="label" className="label has-text-primary">
+                  {' '}
+                  Label
+                  <div className="control">
+                    <input
+                      required
+                      data-testid="input-label"
+                      type="text"
+                      className="input is-primary"
+                      name="label"
+                      placeholder="Label"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    {/* {labels.map((access) => (
+                        <div key={access.label}>
+                          <option value={access.label}>{access.label}</option>
+                        </div>
+                      ))}
+                    </select> */}
+                  </div>
+                </label>
+              </div>
+              <div className="field">
+                <label htmlFor="sources" className="label has-text-primary">
+                  {' '}
+                  Source
+                  <div className="control">
+                    <input
+                      required
+                      data-testid="input-sources"
+                      type="text"
+                      className="input is-primary"
+                      name="sources"
+                      placeholder="Source"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                </label>
+              </div>
+              <div className="field">
+                <label htmlFor="arabic" className="label has-text-primary">
+                  {' '}
+                  Arabic
+                  <div className="control">
+                    <input
+                      required
+                      data-testid="input-arabic"
+                      type="text"
+                      className="input is-primary has-text-right"
+                      name="arabic"
+                      placeholder="Arabic"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                </label>
+              </div>
+              <div className="field">
+                <label htmlFor="description" className="label has-text-primary">
+                  {' '}
+                  Description
+                  <div className="control">
+                    <textarea
+                      required
+                      data-testid="input-description"
+                      type="text"
+                      className="textarea is-primary"
+                      name="description"
+                      placeholder="Description"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                </label>
+              </div>
+              <div className="field is-grouped is-grouped-centered pb-3 pt-5">
                 <input
-                  required
-                  data-testid="input-title"
-                  type="text"
-                  className="input is-primary"
-                  name="title"
-                  placeholder="Title"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
+                  type="submit"
+                  data-testid="add-submit"
+                  className="button is-primary mr-2 ml-2"
                 />
               </div>
-            </label>
-          </div>
-          <div className="field">
-            <label htmlFor="label" className="label has-text-primary">
-              {' '}
-              Label
-              <div className="control">
+            </form>
+          )}
+          {!selected && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="field">
+                <label htmlFor="title" className="label has-text-primary">
+                  {' '}
+                  Title
+                  <div className="control">
+                    <select
+                      required
+                      data-testid="input-title"
+                      type="text"
+                      className="input is-primary"
+                      name="title"
+                      placeholder="Title"
+                      ref={register}
+                      onChange={(e) => handleChange(e)}
+                    >
+                      <option value="General">General</option>
+                      <option value="Emotional">Emotional</option>
+                      <option value="Situational">Situational</option>
+                    </select>
+                  </div>
+                </label>
+              </div>
+              <div className="field is-grouped is-grouped-centered pb-3 pt-5">
                 <input
-                  required
-                  data-testid="input-label"
-                  type="text"
-                  className="input is-primary"
-                  name="label"
-                  placeholder="Label"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
+                  type="submit"
+                  data-testid="add-submit"
+                  className="button is-primary mr-2 ml-2"
                 />
               </div>
-            </label>
-          </div>
-          <div className="field">
-            <label htmlFor="sources" className="label has-text-primary">
-              {' '}
-              Source
-              <div className="control">
-                <input
-                  required
-                  data-testid="input-sources"
-                  type="text"
-                  className="input is-primary"
-                  name="sources"
-                  placeholder="Source"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            </label>
-          </div>
-          <div className="field">
-            <label htmlFor="arabic" className="label has-text-primary">
-              {' '}
-              Arabic
-              <div className="control">
-                <input
-                  required
-                  data-testid="input-arabic"
-                  type="text"
-                  className="input is-primary has-text-right"
-                  name="arabic"
-                  placeholder="Arabic"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            </label>
-          </div>
-          <div className="field">
-            <label htmlFor="description" className="label has-text-primary">
-              {' '}
-              Description
-              <div className="control">
-                <textarea
-                  required
-                  data-testid="input-description"
-                  type="text"
-                  className="textarea is-primary"
-                  name="description"
-                  placeholder="Description"
-                  ref={register}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-            </label>
-          </div>
-          <div className="field is-grouped is-grouped-centered pb-3 pt-5">
-            <input
-              type="submit"
-              data-testid="add-submit"
-              className="button is-primary mr-2 ml-2"
-            />
-          </div>
-        </form>
+            </form>
+          )}
+        </div>
       )}
     </div>
   );

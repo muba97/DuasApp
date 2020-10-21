@@ -18,7 +18,7 @@ const GeneralPage = () => {
 
   const [labels, setlabels] = useState([]);
 
-  const fetchduas = async () => {
+  const fetchLabels = async () => {
     const labelFilter = {
       title: {
         contains: 'General', // filter when title = 'General'
@@ -36,7 +36,7 @@ const GeneralPage = () => {
     }
   };
   useEffect(() => {
-    fetchduas();
+    fetchLabels();
   }, []);
 
   const handleChange = async (e) => {
