@@ -1,40 +1,46 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTitles = /* GraphQL */ `
-  mutation CreateTitles(
-    $input: CreateTitlesInput!
-    $condition: ModelTitlesConditionInput
+export const createFundRaisers = /* GraphQL */ `
+  mutation CreateFundRaisers(
+    $input: CreateFundRaisersInput!
+    $condition: ModelfundRaisersConditionInput
   ) {
-    createTitles(input: $input, condition: $condition) {
+    createFundRaisers(input: $input, condition: $condition) {
       id
       title
+      description
+      link
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTitles = /* GraphQL */ `
-  mutation UpdateTitles(
-    $input: UpdateTitlesInput!
-    $condition: ModelTitlesConditionInput
+export const updateFundRaisers = /* GraphQL */ `
+  mutation UpdateFundRaisers(
+    $input: UpdateFundRaisersInput!
+    $condition: ModelfundRaisersConditionInput
   ) {
-    updateTitles(input: $input, condition: $condition) {
+    updateFundRaisers(input: $input, condition: $condition) {
       id
       title
+      description
+      link
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTitles = /* GraphQL */ `
-  mutation DeleteTitles(
-    $input: DeleteTitlesInput!
-    $condition: ModelTitlesConditionInput
+export const deleteFundRaisers = /* GraphQL */ `
+  mutation DeleteFundRaisers(
+    $input: DeleteFundRaisersInput!
+    $condition: ModelfundRaisersConditionInput
   ) {
-    deleteTitles(input: $input, condition: $condition) {
+    deleteFundRaisers(input: $input, condition: $condition) {
       id
       title
+      description
+      link
       createdAt
       updatedAt
     }

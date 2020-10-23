@@ -13,11 +13,11 @@ const editSchema = yup.object().shape({
   arabic: yup.string().required('Dua is Required'),
   description: yup.string().required('Description is Required'),
 });
+const duaList = [];
 
 const NewService = () => {
   const [formData, setFormData] = useState([]);
   const [titleData, setTitleData] = useState([]);
-  const [labels, setlabels] = useState([]);
   const [labelOpen, setlabelOpen] = useState(false);
   const [itemOpen, setitemOpen] = useState(false);
   const [selected, setselected] = useState(false);
@@ -39,27 +39,17 @@ const NewService = () => {
   };
   const onSelected = async (data, e) => {
     setTitleData(data);
-    console.log(titleData);
     reset(e);
+    await fetchLabels();
     setselected(true);
   };
   const onSubmit = async (data, e) => {
-    if (selected == true) {
-      setFormData(data);
-      await API.graphql(graphqlOperation(createItems, { input: formData }));
-      reset(e);
-      console.log(formData);
-      setselected(false);
-
-    } else {
-      setFormData(data);
-      console.log(formData);
-      reset(e);
-      setselected(true);
-    }
+    setFormData(data);
+    await API.graphql(graphqlOperation(createItems, { input: formData }));
+    reset(e);
+    setselected(false);
   };
   const fetchLabels = async () => {
-    console.log(titleData.title);
     const labelFilter = {
       title: {
         contains: titleData.title, // filter when title = 'General'
@@ -69,9 +59,7 @@ const NewService = () => {
       const duaData = await API.graphql(
         graphqlOperation(listLabelss, { filter: labelFilter })
       );
-      const duaList = duaData.data.listLabelss.items;
-      console.log('song list', duaList);
-      setlabels(duaData.data.listLabelss.items);
+      duaList.push(duaData.data.listLabelss.items);
     } catch (error) {
       console.log('error on fetching songs', error);
     }
@@ -93,6 +81,9 @@ const NewService = () => {
       setitemOpen(!itemOpen);
     }
   };
+  const cancelClick = () => {
+    setselected(false);
+  }
   return (
     <div data-testid="newServiceInfo">
       <div className="field is-grouped is-grouped-centered pb-3 pt-5">
@@ -145,7 +136,7 @@ const NewService = () => {
                   {' '}
                   Label
                   <div className="control">
-                    <input
+                    <select
                       required
                       data-testid="input-label"
                       type="text"
@@ -154,13 +145,11 @@ const NewService = () => {
                       placeholder="Label"
                       ref={register}
                       onChange={(e) => handleChange(e)}
-                    />
-                    {/* {labels.map((access) => (
-                        <div key={access.label}>
-                          <option value={access.label}>{access.label}</option>
-                        </div>
+                    >
+                      {duaList[0].map((access) => (
+                        <option value={access.label}>{access.label}</option>
                       ))}
-                    </select> */}
+                    </select>
                   </div>
                 </label>
               </div>
@@ -224,11 +213,21 @@ const NewService = () => {
                   data-testid="add-submit"
                   className="button is-primary mr-2 ml-2"
                 />
+                <p className="control">
+                  <button
+                    data-testid="cancelButton"
+                    type="button"
+                    onClick={() => cancelClick()}
+                    className="button is-primary"
+                  >
+                    Cancel
+                  </button>
+                </p>
               </div>
             </form>
           )}
           {!selected && (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSelected)}>
               <div className="field">
                 <label htmlFor="title" className="label has-text-primary">
                   {' '}
@@ -242,8 +241,9 @@ const NewService = () => {
                       name="title"
                       placeholder="Title"
                       ref={register}
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => handleTitleChange(e)}
                     >
+                      <option>Choose a Title</option>
                       <option value="General">General</option>
                       <option value="Emotional">Emotional</option>
                       <option value="Situational">Situational</option>

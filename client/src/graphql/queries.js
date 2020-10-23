@@ -1,26 +1,30 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTitles = /* GraphQL */ `
-  query GetTitles($id: ID!) {
-    getTitles(id: $id) {
+export const getFundRaisers = /* GraphQL */ `
+  query GetFundRaisers($id: ID!) {
+    getFundRaisers(id: $id) {
       id
       title
+      description
+      link
       createdAt
       updatedAt
     }
   }
 `;
-export const listTitless = /* GraphQL */ `
-  query ListTitless(
-    $filter: ModelTitlesFilterInput
+export const listFundRaiserss = /* GraphQL */ `
+  query ListFundRaiserss(
+    $filter: ModelfundRaisersFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTitless(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listFundRaiserss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         title
+        description
+        link
         createdAt
         updatedAt
       }

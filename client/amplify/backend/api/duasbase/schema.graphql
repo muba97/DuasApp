@@ -1,6 +1,8 @@
-type Titles @model {
+type fundRaisers @model {
   id: ID!
   title: String!
+  description: String!
+  link: String!
 }
 type Labels @model {
   id: ID!
