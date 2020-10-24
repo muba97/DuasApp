@@ -62,7 +62,7 @@ const Items = ({ items }) => {
           src={backgroundPic}
           alt="Masjid Pic"
           style={{ width: '600px', height: '800px' }}
-        ></img>
+        />
         <div style={classes.imageTopContent}>
           <h1 style={{ fontSize: '30px' }}>{items.title}</h1>
           <h2 style={{ bottom: '80%', fontSize: '25px' }}>{items.sources}</h2>
@@ -115,9 +115,10 @@ const Items = ({ items }) => {
     <div>
       <Component />
       <ToDownloadComponent />
-      <div className="has-text-right">
+      <div className="has-text-right mt-1">
         <span className="control">
           <button
+            type="button"
             className="button is-primary"
             onClick={async () => {
               await setref(true);

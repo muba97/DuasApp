@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
@@ -49,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    color: '#3C8B73',
   },
   hide: {
     display: 'none',
@@ -59,7 +59,9 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: '#3C8B73',
+    backgroundColor: '#121616',
+    borderColor: '#3C8B73',
+    borderWidth: 3,
   },
   drawerHeader: {
     display: 'absolute',
@@ -68,13 +70,18 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    color: '#3C8B73',
   },
   content: {
     justifyContent: 'center',
 
-    color: '#121616',
+    color: '#3C8B73',
     display: 'absolute',
+  },
+  icon: {
+    color: '#3C8B73',
+  },
+  dividers: {
+    backgroundColor: '#3C8B73',
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -89,6 +96,22 @@ const Navbar = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [isLoggedIn, setLoginStatus] = useState(false);
+
+  const isAuthenticated = async () => {
+    try {
+      await Auth.currentAuthenticatedUser();
+      setLoginStatus(true);
+      console.log('Is logged in');
+    } catch (Err) {
+      setLoginStatus(false);
+      console.log('Is not logged in');
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,11 +122,11 @@ const Navbar = (props) => {
   };
   async function signOut() {
     try {
-        await Auth.signOut();
+      await Auth.signOut();
     } catch (error) {
-        console.log('error signing out: ', error);
+      console.log('error signing out: ', error);
     }
-}
+  }
 
   return (
     <div className={classes.root}>
@@ -137,16 +160,11 @@ const Navbar = (props) => {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} className={classes.icon}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-          <List>
-          <ListItem className={classes.content}>
-            DUAS
-          </ListItem>
-        </List>
         </div>
-        <Divider />
+        <Divider className={classes.dividers} />
         <List>
           <ListItem component={Link} to="/general" className={classes.content}>
             General
@@ -162,9 +180,31 @@ const Navbar = (props) => {
             Situational
           </ListItem>
         </List>
-        <List>
-          <button type="button" onClick={() => signOut()}>SignOut</button>
-        </List>
+        {isLoggedIn && (
+          <div>
+            <List>
+              <ListItem component={Link} to="/scholarAdmin" className={classes.content}>
+                GeneralAdmin
+              </ListItem>
+            </List>
+            <List>
+              <ListItem component={Link} to="/add" className={classes.content}>
+                Add
+              </ListItem>
+            </List>
+            <List>
+              <ListItem
+                type="button"
+                onClick={() => signOut()}
+                component={Link}
+                to="/scholarlogin"
+                className={classes.content}
+              >
+                SignOut
+              </ListItem>
+            </List>
+          </div>
+        )}
       </Drawer>
     </div>
   );

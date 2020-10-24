@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { API, graphqlOperation } from 'aws-amplify';
+import { updateItems, deleteItems } from '../graphql/mutations';
+import Items from './Items';
 
 const editSchema = yup.object().shape({
   title: yup.string().required('Title is Required'),
@@ -26,6 +29,8 @@ const atLeastOneEmptyKey = (obj) => {
   return oneFound;
 };
 const AdminItems = ({ items }) => {
+  delete items.updatedAt;
+  delete items.createdAt;
   const [initData, setInitData] = useState(items);
   const [serviceData, setServiceData] = useState(items);
   const [edit, setEdit] = useState(true);
@@ -36,15 +41,33 @@ const AdminItems = ({ items }) => {
     validationSchema: editSchema,
   });
   const toggle = () => setdeleteToggle(!deleteToggle);
-  const handleRemove = () => {
+  const handleRemove = async () => {
     setconfirmDelete(false);
     setInitData(null);
     setServiceData(null);
+    console.log('delete', items.id);
+
+      const ID = { id: items.id };
+      const deletedItems = await API.graphql({
+        query: deleteItems,
+        variables: { input: ID },
+      });
+    
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (edit !== false) {
       setInitData(data);
       setServiceData(data);
+      console.log('updateItem in serviceData', serviceData);
+      try {
+        const updatedItem = await API.graphql({
+          query: updateItems,
+          variables: { input: serviceData },
+        });
+        console.log('updatedItems', updatedItem);
+      } catch (error) {
+        console.log('error on fetching songs', error);
+      }
     }
   };
   const handleChange = (e) => {
@@ -80,7 +103,7 @@ const AdminItems = ({ items }) => {
                   {' '}
                   Title
                 </label>
-                <div className="control ml-2">
+                <div className="control ml-2 mr-2">
                   <input
                     data-testid="input-title"
                     type="text"
@@ -96,11 +119,11 @@ const AdminItems = ({ items }) => {
                 {errors.title && <p className="help is-danger">{errors.title.message}</p>}
               </div>
               <div className="field is-small">
-                <label htmlFor="label" className="label has-text-primary mr-2">
+                <label htmlFor="label" className="label has-text-primary ml-2 mr-2">
                   {' '}
                   Label
                 </label>
-                <div className="control">
+                <div className="control ml-2 mr-2">
                   <input
                     data-testid="input-label"
                     type="text"
@@ -116,11 +139,11 @@ const AdminItems = ({ items }) => {
                 {errors.label && <p className="help is-danger">{errors.label.message}</p>}
               </div>
               <div className="field is-small">
-                <label htmlFor="sources" className="label has-text-primary mr-2">
+                <label htmlFor="sources" className="label has-text-primary ml-2 mr-2">
                   {' '}
                   Sources
                 </label>
-                <div className="control mr-2">
+                <div className="control ml-2 mr-2">
                   <input
                     data-testid="input-sources"
                     type="text"
