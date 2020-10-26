@@ -47,12 +47,11 @@ const AdminItems = ({ items }) => {
     setServiceData(null);
     console.log('delete', items.id);
 
-      const ID = { id: items.id };
-      const deletedItems = await API.graphql({
-        query: deleteItems,
-        variables: { input: ID },
-      });
-    
+    const ID = { id: items.id };
+    const deletedItems = await API.graphql({
+      query: deleteItems,
+      variables: { input: ID },
+    });
   };
   const onSubmit = async (data) => {
     if (edit !== false) {

@@ -10,6 +10,7 @@ import SituationPage from './pages/SituationPage';
 import AdminGeneralPage from './pages/AdminGeneralPage';
 import LoginPage from './pages/LoginPage';
 import NewItemPage from './pages/NewItemPage';
+import SearchPage from './pages/SearchPage';
 import awsExports from './aws-exports';
 import { listLabelss } from './graphql/queries';
 
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route exact path="/add">
             <NewItemPage />
+          </Route>
+          <Route exact path="/search">
+            <SearchPage />
           </Route>
         </Switch>
       </Router>

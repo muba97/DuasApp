@@ -180,6 +180,11 @@ const Navbar = (props) => {
             Situational
           </ListItem>
         </List>
+        <List>
+          <ListItem component={Link} to="/search" className={classes.content}>
+            Search
+          </ListItem>
+        </List>
         {isLoggedIn && (
           <div>
             <List>
