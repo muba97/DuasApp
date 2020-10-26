@@ -24,7 +24,7 @@ import backgroundPic from './masjid_pic_filtered.jpg';
 const Items = ({ items }) => {
   const componentRef = useRef();
   const [refer, setref] = useState(false);
-
+  items.description = 'This is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the cou'
   const classes = {
     imageTopContent: {
       position: 'absolute',
@@ -88,13 +88,13 @@ const Items = ({ items }) => {
           </div>
         </section>
         <section className="hero is-dark is-medium">
-          <div className="has-text-right">
-            <span className=" has-text-primary is-size-3 mr-2 is-size-5-mobile">
+          <div className="has-text-right mr-2" style={{ wordWrap: "break-word" }}>
+            <span className=" has-text-primary is-size-3 is-size-5-mobile">
               {items.arabic}
             </span>
           </div>
-          <div className="has-text-left">
-            <span className=" has-text-primary is-size-5 ml-2 is-size-7-mobile">
+          <div className="has-text-left ml-2" style={{ wordWrap: "break-word" }}>
+            <span className=" has-text-primary is-size-5 is-size-7-mobile" >
               Description: {items.description}
             </span>
           </div>
