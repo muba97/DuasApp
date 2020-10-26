@@ -25,8 +25,8 @@ import '../arabicFont.css';
 const Items = ({ items }) => {
   const componentRef = useRef();
   const [refer, setref] = useState(false);
-  items.description = 'This is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the cou'
-
+  items.description =
+    'This is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the countaining element is a very ong tag that needs to be automatically broken when it reaches the boundries of the cou';
 
   const classes = {
     imageTopContent: {
@@ -65,7 +65,7 @@ const Items = ({ items }) => {
           src={backgroundPic}
           alt="Masjid Pic"
           style={{ width: '600px', height: '800px' }}
-         />
+        />
         <div style={classes.imageTopContent}>
           <h1 style={{ fontSize: '30px' }}>{items.title}</h1>
           <h2 style={{ bottom: '80%', fontSize: '25px' }}>{items.sources}</h2>
@@ -91,19 +91,22 @@ const Items = ({ items }) => {
           </div>
         </section>
         <section className="hero is-dark is-medium">
-          <div className="has-text-right">
-            <span className="has-text-primary is-size-3 mr-2 is-size-5-mobile" style={{fontFamily: 'arabicFont, serif'}}>
+          <div className="has-text-right mr-2" style={{ wordWrap: 'break-word' }}>
+            <span
+              className="has-text-primary is-size-3 mr-2 is-size-5-mobile"
+              style={{ fontFamily: 'arabicFont, serif' }}
+            >
               {items.arabic}
             </span>
           </div>
-          <div className="has-text-left">
-            <span className=" has-text-primary is-size-5 ml-2 is-size-7-mobile">
-              Description: {items.description}
+          <div className="has-text-left ml-2" style={{ wordWrap: 'break-word' }}>
+            <span className=" has-text-primary is-size-5 is-size-7-mobile">
+              {items.description}
             </span>
           </div>
-          <div className="has-text-left">
+          <div className="has-text-centered">
             <span className=" has-text-primary is-size-5 ml-2 is-size-7-mobile">
-              Source: {items.sources}
+              {items.sources}
             </span>
           </div>
           {/* <div>
@@ -121,7 +124,8 @@ const Items = ({ items }) => {
       <div className="has-text-right">
         <span>
           <button
-            className="button"
+            type="button"
+            className="button is-primary mt-1"
             onClick={async () => {
               await setref(true);
               exportComponentAsPNG(componentRef);
