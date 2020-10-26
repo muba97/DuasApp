@@ -1,7 +1,8 @@
 import { setRef } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 import { exportComponentAsPNG } from 'react-component-export-image';
-import backgroundPic from '../masjid_pic_filtered.jpg';
+import backgroundPic from '../masjid pic_filtered.jpg';
+import '../arabicFont.css';
 
 // const useStyle = makeStyles(() => ({
 //   imageTopContent: {
@@ -68,7 +69,7 @@ const Items = ({ items }) => {
           <h2 style={{ bottom: '80%', fontSize: '25px' }}>{items.sources}</h2>
         </div>
         <div style={classes.imageBotContent}>
-          <h2>{items.arabic}</h2>
+          <h2 style={{fontFamily: 'arabicFont, serif'}}>{items.arabic}</h2>
           <p style={{ fontSize: '25px', marginTop: '1rem' }}>{items.description}</p>
         </div>
       </div>
@@ -89,7 +90,7 @@ const Items = ({ items }) => {
         </section>
         <section className="hero is-dark is-medium">
           <div className="has-text-right">
-            <span className=" has-text-primary is-size-3 mr-2 is-size-5-mobile">
+            <span className="has-text-primary is-size-3 mr-2 is-size-5-mobile" style={{fontFamily: 'arabicFont, serif'}}>
               {items.arabic}
             </span>
           </div>

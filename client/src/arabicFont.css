@@ -1,0 +1,6 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Katibeh&display=swap'); */
+
+@font-face {
+  font-family: 'arabicFont';
+  src: local('arabicFont'), url(./fonts/me_quran_volt_newmet.ttf) format('truetype');
+}
