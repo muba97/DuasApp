@@ -71,7 +71,7 @@ const Items = ({ items }) => {
           <h2 style={{ bottom: '80%', fontSize: '25px' }}>{items.sources}</h2>
         </div>
         <div style={classes.imageBotContent}>
-          <h2 style={{ fontFamily: 'arabicFont, serif' }}>{items.arabic}</h2>
+          <span style={{ fontFamily: 'arabicFont, serif' }}>{items.arabic}</span>
           <p style={{ fontSize: '25px', marginTop: '1rem' }}>{items.description}</p>
         </div>
       </div>

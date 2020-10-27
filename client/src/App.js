@@ -11,6 +11,9 @@ import AdminGeneralPage from './pages/AdminGeneralPage';
 import LoginPage from './pages/LoginPage';
 import NewItemPage from './pages/NewItemPage';
 import SearchPage from './pages/SearchPage';
+import AddFundPage from './pages/AddFundPage';
+import DonationLinkPage from './pages/DonationLinkPage';
+
 import awsExports from './aws-exports';
 import { listLabelss } from './graphql/queries';
 
@@ -57,6 +60,12 @@ function App() {
           </Route>
           <Route exact path="/search">
             <SearchPage />
+          </Route>
+          <Route exact path="/addDonation">
+            <AddFundPage />
+          </Route>
+          <Route exact path="/donation">
+            <DonationLinkPage />
           </Route>
         </Switch>
       </Router>
