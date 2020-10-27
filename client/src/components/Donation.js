@@ -23,7 +23,7 @@ const Donation = ({ items }) => {
     <div className="mt-6">
       <Divider className={classes.dividers} />
       <div className="mt-3 has-text-centered">
-        <span className="is-uppercase has-text-dark has-text-weight-bold is-size-5 is-size-7-mobile">
+        <span className="is-uppercase has-text-dark is-family-primary has-text-weight-bold is-size-5 is-size-7-mobile">
           {items.title}
         </span>
       </div>

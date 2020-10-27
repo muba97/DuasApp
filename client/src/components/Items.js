@@ -85,7 +85,7 @@ const Items = ({ items }) => {
       <div>
         <section className="hero is-primary is-small pb-1 mb-1 mt-5">
           <div className="has-text-centered">
-            <span className="is-uppercase has-text-dark has-text-weight-bold is-size-5 is-size-7-mobile">
+            <span className="is-uppercase is-family-primary has-text-dark has-text-weight-bold is-size-5 is-size-7-mobile">
               {items.title}
             </span>
           </div>
@@ -100,12 +100,12 @@ const Items = ({ items }) => {
             </span>
           </div>
           <div className="has-text-left ml-2" style={{ wordWrap: 'break-word' }}>
-            <span className=" has-text-primary is-size-5 is-size-7-mobile">
+            <span className=" has-text-primary is-family-primary is-size-6 is-size-7-mobile">
               {items.description}
             </span>
           </div>
           <div className="has-text-centered">
-            <span className=" has-text-primary is-size-5 ml-2 is-size-7-mobile">
+            <span className=" has-text-primary is-family-primary is-size-6 ml-2 is-size-7-mobile">
               {items.sources}
             </span>
           </div>
