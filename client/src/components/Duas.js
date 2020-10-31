@@ -31,6 +31,7 @@ const Duas = ({ labels, duaItems }) => {
               <Items items={item} />
             </div>
           ))}
+          
         </ul>
       )}
     </div>

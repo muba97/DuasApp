@@ -1,4 +1,3 @@
-import { setRef } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
 import { exportComponentAsPNG } from 'react-component-export-image';
 import backgroundPic from './masjid_pic_filtered.jpg';
@@ -32,26 +31,26 @@ const Items = ({ items }) => {
     imageTopContent: {
       position: 'absolute',
       bottom: '70%',
-      left: '163px',
       color: 'rgb(64 97 32)',
       textAlign: 'center',
-      width: '300px',
+      width: '600px',
       height: '200px',
     },
     imageBotContent: {
       position: 'absolute',
-      bottom: '25%',
-      left: '163px',
+      bottom: '0',
       color: 'white',
       fontSize: '2rem',
       textAlign: 'center',
-      width: '300px',
-      height: '200px',
+      width: '600px',
+      height: '500px',
     },
   };
 
-  const ToDownloadComponent = React.forwardRef((props, ref) => (
-    <div style={refer ? { display: 'block' } : { display: 'none' }}>
+  const ToDownloadComponent = React.forwardRef((props, ref) => {
+    
+    return(
+    <div style={refer ? { display: 'block' } : { display: 'block' }}>
       <div
         ref={componentRef}
         style={{
@@ -76,7 +75,7 @@ const Items = ({ items }) => {
         </div>
       </div>
     </div>
-  ));
+  )});
 
   // React.useEffect(() => setref(componentRef), []);
 
