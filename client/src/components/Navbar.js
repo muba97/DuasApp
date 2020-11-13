@@ -185,6 +185,11 @@ const Navbar = (props) => {
             Search
           </ListItem>
         </List>
+        <List>
+          <ListItem component={Link} to="/donation" className={classes.content}>
+            Donation Links
+          </ListItem>
+        </List>
         {isLoggedIn && (
           <div>
             <List>
@@ -195,6 +200,11 @@ const Navbar = (props) => {
             <List>
               <ListItem component={Link} to="/add" className={classes.content}>
                 Add
+              </ListItem>
+            </List>
+            <List>
+              <ListItem component={Link} to="/addDonation" className={classes.content}>
+                AddLink
               </ListItem>
             </List>
             <List>
