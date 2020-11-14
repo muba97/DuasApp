@@ -1,6 +1,5 @@
-import { setRef } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
-import { exportComponentAsPNG } from 'react-component-export-image';
+import React, { useRef, useState } from 'react';
+import { toPng } from 'html-to-image';
 import backgroundPic from './masjid_pic_filtered.jpg';
 import '../arabicFont.css';
 
@@ -23,6 +22,7 @@ import '../arabicFont.css';
 // }));
 
 const Items = ({ items }) => {
+  
   const componentRef = useRef();
   const [refer, setref] = useState(false);
   items.description =
@@ -32,28 +32,29 @@ const Items = ({ items }) => {
     imageTopContent: {
       position: 'absolute',
       bottom: '70%',
-      left: '163px',
       color: 'rgb(64 97 32)',
       textAlign: 'center',
-      width: '300px',
+      width: '600px',
       height: '200px',
     },
     imageBotContent: {
       position: 'absolute',
-      bottom: '25%',
-      left: '163px',
+      bottom: '0',
       color: 'white',
       fontSize: '2rem',
       textAlign: 'center',
-      width: '300px',
-      height: '200px',
+      width: '600px',
+      height: '500px',
     },
   };
 
-  const ToDownloadComponent = React.forwardRef((props, ref) => (
+  const ToDownloadComponent = React.forwardRef((props, ref) => {
+    
+    return(
     <div style={refer ? { display: 'block' } : { display: 'none' }}>
       <div
         ref={componentRef}
+        id="toDownloadComponent"
         style={{
           position: 'relative',
           textAlign: 'center',
@@ -76,7 +77,7 @@ const Items = ({ items }) => {
         </div>
       </div>
     </div>
-  ));
+  )});
 
   // React.useEffect(() => setref(componentRef), []);
 
@@ -127,8 +128,13 @@ const Items = ({ items }) => {
             type="button"
             className="button is-primary mt-1"
             onClick={async () => {
-              await setref(true);
-              exportComponentAsPNG(componentRef);
+              await setref(true)
+              await toPng(document.getElementById('toDownloadComponent')).then((dataUrl)=>{
+                let link = document.createElement('a');
+                link.download = "dua.png";
+                link.href = dataUrl;
+                link.click();
+              });
               setref(false);
             }}
           >
