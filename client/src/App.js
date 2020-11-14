@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import AnnoucementPage from './pages/AnnoucementPage';
 import GeneralPage from './pages/GeneralPage';
 import EmotionPage from './pages/EmotionPage';
