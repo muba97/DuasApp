@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "duasbase",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authduasbase4912f3064912f306",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

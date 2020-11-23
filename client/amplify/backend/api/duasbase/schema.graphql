@@ -1,0 +1,19 @@
+type fundRaisers @model {
+  id: ID!
+  title: String!
+  description: String!
+  link: String!
+}
+type Labels @model {
+  id: ID!
+  label: String!
+  title: String!
+}
+type Items @model {
+  id: ID!
+  title: String!
+  label: String!
+  arabic: String!
+  sources: String!
+  description: String!
+}

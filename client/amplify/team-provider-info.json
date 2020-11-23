@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-duasbase-dev-143127-authRole",
+      "UnauthRoleArn": "arn:aws:iam::905917855670:role/amplify-duasbase-dev-143127-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::905917855670:role/amplify-duasbase-dev-143127-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-duasbase-dev-143127-deployment",
+      "UnauthRoleName": "amplify-duasbase-dev-143127-unauthRole",
+      "StackName": "amplify-duasbase-dev-143127",
+      "StackId": "arn:aws:cloudformation:us-east-1:905917855670:stack/amplify-duasbase-dev-143127/df69d1f0-2dca-11eb-9b3b-12878b97cc21",
+      "AmplifyAppId": "dko08kikaui4o"
+    },
+    "categories": {
+      "auth": {
+        "duasbase4912f3064912f306": {}
+      }
+    }
+  }
+}
